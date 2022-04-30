@@ -1,0 +1,24 @@
+version: '3'
+services:
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: the-greatest-root-password-ever
+  web:
+    depends_on:
+      - db
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      MYSQL_USER: root
+      MYSQL_PASSWORD: the-greatest-root-password-ever
+      MYSQL_PORT: 3306
+      MYSQL_HOST: db
+      RAILS_ENV: development
+      RAILS_MAX_THREADS: 5
+    volumes:
+      - ".:/workdir"
+
+volumes:
+  db:
